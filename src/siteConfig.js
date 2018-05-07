@@ -2,10 +2,10 @@ module.exports = {
   /**
    * SEO
    */
-  blogTitle: "WindRises's Blog",
-  blogDescription: "WindRises's Blog",
-  blogAuthor: 'WindRises',
-  blogKeywords: 'WindRises, WindRises\'Blog, vue, vue-blog, GitHub-page, 博客',
+  blogTitle: "WindRisesX's Blog",
+  blogDescription: "WindRisesX's Blog",
+  blogAuthor: 'WindRisesX',
+  blogKeywords: 'WindRisesX, WindRisesX\'Blog, vue, vue-blog, GitHub-page, 博客',
   favicon: './src/assets/favicon.png',
 
   /**

@@ -45,7 +45,6 @@ export default {
         title: this.title,
         owner: config.owner,
         repo: config.repo,
-        labels: [this.title],
         oauth: {
           client_id: config.oauth.client_id,
           client_secret: config.oauth.client_secret
