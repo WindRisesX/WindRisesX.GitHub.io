@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <div class="header">
-      <a href="/" @click.stop.prevent="$router.push({ path: '/' })">Unable Register</a>
+      <a href="/" @click.stop.prevent="$router.push({ path: '/' })">{{userName}}</a>
     </div>
     <p class="links">
-      <a href="https://github.com/UnableRegister" target="_blank" rel="noopener noreferrer nofollow">
+      <a :href="github" target="_blank" rel="noopener noreferrer nofollow">
         <img src="./assets/github.png">
       </a>
     </p>
@@ -18,8 +18,15 @@
 <script>
 import { mapState, mapMutations } from "vuex";
 import API from "./API";
+import {userName, github} from "./siteConfig"
 
 export default {
+  data() {
+    return {
+      userName,
+      github
+    }
+  },
   computed: {
     ...mapState(['sitePV'])
   },

@@ -8,7 +8,7 @@
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "build": "node build/build.js",
-    "deploy": "gh-pages -b blog -d dist",
+    "deploy": "gh-pages -b master -d dist",
     "releases": "node ./sentryReleases.js one ur-blog ./dist/static/js"
   },
   "dependencies": {

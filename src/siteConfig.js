@@ -14,4 +14,6 @@ module.exports = {
   repo: 'UnableRegister/blog-article',
   path: '',
   branch: 'master',
+  userName: 'Wind RisesX',
+  github: 'https://github.com/WindRisesX',
 }
