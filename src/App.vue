@@ -1,31 +1,29 @@
 <template>
   <div id="app">
+    <canvas-lines id="canvas"/>
     <div class="header">
-      <a href="/" @click.stop.prevent="$router.push({ path: '/' })">{{userName}}</a>
+      <a class="site-title" href="/" @click.stop.prevent="$router.push({ path: '/' })">Wind Rises X</a>
+      <a href="https://github.com/WindRisesX"><img class="site-fork" style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub"></a>
     </div>
-    <p class="links">
-      <a :href="github" target="_blank" rel="noopener noreferrer nofollow">
-        <img src="./assets/github.png">
-      </a>
+    <p class="site-subtitle">
+        Be Your Personal Best
     </p>
-  <main>
-    <router-view/>
-  </main>
-  <span id="site_pv">view {{sitePV}} times</span>
+    <main>
+      <router-view/>
+    </main>
+    <span id="site_pv">{{sitePV}}℃</span>
   </div>
 </template>
 
 <script>
 import { mapState, mapMutations } from "vuex";
 import API from "./API";
-import {userName, github} from "./siteConfig"
+
+import CanvasLines from './components/CanvasLines';
 
 export default {
-  data() {
-    return {
-      userName,
-      github
-    }
+  components: {
+    CanvasLines
   },
   computed: {
     ...mapState(['sitePV'])
@@ -60,14 +58,11 @@ $font-fmaily: "Roboto", "Helvetica Neue", "Hiragino Sans GB", "LiHei Pro", Arial
 
 #app {
   font-family: $font-fmaily;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-body {
+html, body {
+  height: 100%;
   margin: 0;
-  text-rendering: optimizelegibility;
-  -webkit-font-smoothing: antialiased;
 }
 
 .header,
@@ -89,12 +84,14 @@ a {
 
 .header {
   letter-spacing: 3px;
-  margin: 50px auto 15px;
+  padding-top: 50px;
+  margin: 0 auto 15px;
   text-align: center;
 
-  a {
-    font-size: 15px;
+  .site-title {
+    font-size: 20px;
     color: #444;
+    font-family: Lato,"PingFang SC","Microsoft YaHei",sans-serif;
   }
 }
 
@@ -110,41 +107,38 @@ a {
     opacity: .8;
   }
 }
-
-@media screen and (max-width: 420px) {
-  .header {
-    margin: 40px auto 10px;
-  }
-}
-.links {
+.site-subtitle {
+  margin-bottom: 60px;
   text-align: center;
   font-family: $font-fmaily;
+  font-size: 13px;
   color: #999;
-  font-size: 24px;
-  margin: 0;
-
-  a {
-    cursor: pointer;
-    padding: 2px;
-    margin: 0 3px;
-  }
-
-  img {
-    width: 15px;
-    height: 15px;
-    border: none;
-  }
+  font-family: Lato,"PingFang SC","Microsoft YaHei",sans-serif;
 }
 
 main {
-  max-width: 600px;
+  max-width:700px;
   margin: 50px auto;
   padding: 0 30px 50px;
   position: relative;
 }
+
+/*
+* 适配移动端
+*/
 @media screen and (max-width: 420px) {
+  .header {
+    margin: 0 auto 10px;
+    padding-top: 40px;
+
+    .site-fork {
+      height: 100px;
+      width: 100px;
+    }
+  }
+  
   main {
-    margin-top: 32px;
+    padding: 0 10px 50px;
   }
 }
 </style>

@@ -1,14 +1,14 @@
 <template>
   <div id="post_container">
     <div class="post">
-    <h3 class="date">{{date | DateFormatEN}}</h3>
+    <h3 class="date">{{date | DateFormatEN}} <span id="page_pv">{{pagePV}}℃</span></h3>
     <h1>{{title}}</h1>
     <div class="content"
       v-if="postContent"
       v-html="postContent" />
     <a v-if="hasNewer" href="/" id="newer" class="blog-nav" @click.stop.prevent="push(newerPost)"><&nbsp;NEWER</a>
     <a v-if="hasOlder" href="/" id="older" class="blog-nav" @click.stop.prevent="push(olderPost)">OLDER&nbsp;></a>
-    <span id="page_pv">view {{pagePV}} times</span>
+    <!-- <span id="page_pv">{{pagePV}}℃</span> -->
   </div>
   <div id="container"></div>
   </div>
@@ -16,8 +16,8 @@
 
 <script>
 import { mapState, mapMutations, mapGetters } from "vuex";
-import Raven from 'raven-js';
-import config from '../gitmentConfig'
+import Raven from "raven-js";
+import config from "../gitmentConfig";
 import fm from "front-matter";
 import API from "../API";
 import marked from "../utils/render.js";
@@ -35,7 +35,12 @@ export default {
     ...mapGetters(["hasNewer", "hasOlder", "newerPost", "olderPost"])
   },
   methods: {
-    ...mapMutations(["setPostContent", "setCurrentPostIndexBySha", "setPagePV", "setSitePV"]),
+    ...mapMutations([
+      "setPostContent",
+      "setCurrentPostIndexBySha",
+      "setPagePV",
+      "setSitePV"
+    ]),
     push(post) {
       this.$router.replace({ path: `/${post.date}/${post.title}/${post.sha}` });
     },
@@ -45,6 +50,7 @@ export default {
         title: this.title,
         owner: config.owner,
         repo: config.repo,
+        labels: [this.title],
         oauth: {
           client_id: config.oauth.client_id,
           client_secret: config.oauth.client_secret
@@ -52,12 +58,12 @@ export default {
       });
       gitment.render("container");
     },
-    busuanziCallBack (err, data) {
+    busuanziCallBack(err, data) {
       if (err) {
-        Raven.captureException(err)
+        Raven.captureException(err);
       } else {
-        this.setSitePV(data.site_pv)
-        this.setPagePV(data.page_pv)
+        this.setSitePV(data.site_pv);
+        this.setPagePV(data.page_pv);
       }
     }
   },
@@ -80,17 +86,17 @@ export default {
           vm.date = to.params.date;
           vm.sha = to.params.sha;
           vm.gitmentRender();
-          API.busuanzi(vm.busuanziCallBack)
+          API.busuanzi(vm.busuanziCallBack);
         });
       })
       .catch(err => {
-        Raven.captureException(err)
+        Raven.captureException(err);
       });
   },
   beforeRouteUpdate(to, from, next) {
     window.document.title = `${to.params.title}`;
     this.gitmentRender();
-    API.busuanzi(this.busuanziCallBack)
+    API.busuanzi(this.busuanziCallBack);
     API.getDetail(to.params.sha)
       .then(text => {
         this.setPostContent(marked(fm(text).body));
@@ -101,7 +107,7 @@ export default {
         next();
       })
       .catch(err => {
-        Raven.captureException(err)
+        Raven.captureException(err);
         next();
       });
   }
@@ -113,13 +119,16 @@ export default {
 <style lang="scss" scoped>
 #post_container {
   position: relative;
+  // background: #fff;
 }
 
 .post {
   position: relative;
-  padding-bottom: 30px;
+  padding: 25px;
   margin-bottom: 30px;
   border-bottom: 1px solid #e6e6e6;
+  box-shadow: 0 0 14px #cacbcb;
+  background: #fff;
 
   .date {
     font-size: 13px;
@@ -149,7 +158,7 @@ export default {
   }
 
   #newer {
-    left: 40px;
+    left: 50px;
   }
 
   #older {
@@ -177,17 +186,27 @@ export default {
   }
 
   #page_pv {
-    position: absolute;
+    // position: absolute;
+    display: line-block;
+    padding-left: 10px;
     bottom: 2px;
     right: 2px;
     color: #999;
-    opacity: 0;
-    transition: opacity 2s;
+    font-size: 12px;
+    opacity: 0.8;
+    // opacity: 0;
+    // transition: opacity 2s;
 
-    &:hover {
-      opacity: .8;
-    }
+    // &:hover {
+    //   opacity: .8;
+    // }
   }
+}
+
+#container {
+  padding: 25px;
+  box-shadow: 0 0 14px #cacbcb;
+  // background: #fff;
 }
 
 @media screen and (max-width: 900px) {
@@ -195,11 +214,11 @@ export default {
     padding-bottom: 80px;
 
     #newer {
-      left: 0;
+      left: 25px;
     }
 
     #older {
-      right: 0;
+      right: 25px;
     }
 
     .blog-nav {
@@ -330,7 +349,7 @@ export default {
     margin: 0 5px;
     border-radius: 2px;
   }
-  
+
   pre {
     code {
       padding: 0;
@@ -341,6 +360,13 @@ export default {
   strong {
     font-weight: 600;
     color: #444;
+  }
+}
+
+#container {
+  .gitment-editor-main,
+  .gitment-comment-main {
+    background: #fff;
   }
 }
 </style>

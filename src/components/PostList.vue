@@ -28,11 +28,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 main ul {
   list-style-type: none;
+  margin: 0;
   padding: 0;
-  padding-top: 4px;
-
+  
   li:first-child {
     margin-top: -30px;
   }
@@ -40,8 +41,12 @@ main ul {
   li {
     position: relative;
     display: list-item;
-    padding: 30px 0 30px;
-    border-bottom: 1px solid #e6e6e6;
+    margin-bottom: 20px;
+    padding: 30px 25px 30px;
+    background: #fff;
+    border-bottom: 1px dashed #e6e6e6;
+    border-right: 1px dashed #e6e6e6;
+    box-shadow: 0 0 4px #cacbcb;
   }
 
   h2,
@@ -53,7 +58,7 @@ main ul {
 
   h3 {
     position: absolute;
-    left: 0;
+    left: 25px;
     top: 38px;
     font-size: 13px;
     color: #999;
@@ -93,7 +98,7 @@ main ul {
     }
 
     li {
-      padding: 18px 0 20px;
+      padding: 18px 15px 20px;
     }
   }
 }
