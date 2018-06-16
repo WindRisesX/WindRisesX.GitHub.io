@@ -5,8 +5,12 @@
  * @param {any} fileName 
  */
 export function Tags (fileName) {
-  return fileName.replace(/\.md$/, '')
-    .match(/(?<=#)[\u4E00-\u9FA5a-zA-Z\.]+/g)
+  let tags = fileName.replace(/\.md$/, '')
+  .match(/#[\u4E00-\u9FA5a-zA-Z\.]+/g) || []
+
+  return tags.map(tag => {
+    return tag.replace('#', '')
+  })
 }
 
 /**
