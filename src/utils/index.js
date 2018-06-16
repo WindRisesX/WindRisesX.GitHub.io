@@ -6,7 +6,7 @@
  */
 export function Tags (fileName) {
   return fileName.replace(/\.md$/, '')
-    .match(/#[\u4E00-\u9FA5a-zA-Z\.]+/g)
+    .match(/(?<=#)[\u4E00-\u9FA5a-zA-Z\.]+/g)
 }
 
 /**

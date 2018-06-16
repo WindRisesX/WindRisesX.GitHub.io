@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import PostList from '@/components/PostList'
 import Post from '@/components/Post'
+import Archive from '@/components/Archive'
+import PostTags from '@/components/PostTags'
 
 Vue.use(Router)
 
@@ -17,6 +19,16 @@ export default new Router({
       path: '/:date/:title/:sha',
       name: 'Post',
       component: Post
+    },
+    {
+      path: '/archive',
+      name: 'Archive',
+      component: Archive
+    },
+    {
+      path: '/tags',
+      name: 'Tags',
+      component: PostTags
     }
   ],
   scrollBehavior (to, from, savedPosition) {

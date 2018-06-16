@@ -14,13 +14,13 @@ function Line(direction, ctx, ctxWidth, ctxHeight) {
   if (direction == "v") {
     this.startPoint.y = 0;
     this.endPoint.y = ctxHeight;
-    this.startPoint.x = randomIntFromInterval(0, ctxHeight);
-    this.endPoint.x = randomIntFromInterval(0, ctxHeight);
+    this.startPoint.x = randomIntFromInterval(0, ctxWidth);
+    this.endPoint.x = randomIntFromInterval(0, ctxWidth);
   } else {
     this.startPoint.x = 0;
     this.endPoint.x = ctxWidth;
-    this.startPoint.y = randomIntFromInterval(0, ctxWidth);
-    this.endPoint.y = randomIntFromInterval(0, ctxWidth);
+    this.startPoint.y = randomIntFromInterval(0, ctxHeight);
+    this.endPoint.y = randomIntFromInterval(0, ctxHeight);
   }
   this.va = randomIntFromInterval(15, 75) / 100;
   this.vb = randomIntFromInterval(15, 75) / 100;

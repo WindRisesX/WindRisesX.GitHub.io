@@ -3,7 +3,7 @@ import axios from 'axios'
 import JSONP from 'jsonp'
 import conf from './siteConfig'
 
-import { Title, Date } from './utils'
+import { Title, Date, Tags } from './utils'
 /**
  * Format github api for post list url
  * @returns {string}
@@ -41,6 +41,7 @@ export default {
           const list = arr.map(({name, sha, size}) => ({
             title: Title(name),
             date: Date(name),
+            tags: Tags(name),
             sha,
             size
           }))

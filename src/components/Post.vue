@@ -1,7 +1,7 @@
 <template>
   <div id="post_container">
     <div class="post">
-    <h3 class="date">{{date | DateFormatEN}} <span id="page_pv">{{pagePV}}℃</span></h3>
+    <h3 class="date">{{date | DateFormat}} <span id="page_pv">{{pagePV}}℃</span></h3>
     <h1>{{title}}</h1>
     <div class="content"
       v-if="postContent"

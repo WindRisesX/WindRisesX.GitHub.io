@@ -8,6 +8,52 @@
     <p class="site-subtitle">
         Be Your Personal Best
     </p>
+    <nav class="site-nav">
+      <ul id="menu">
+        <li class="menu-item menu-item-home">
+          <a href="/#/">
+            <i class="menu-item-icon icon-home"></i>
+            <br>
+            首页
+          </a>
+        </li>
+        <!-- <li class="menu-item menu-item-categories">
+          <a href="/#/categories">
+            <i class="menu-item-icon icon-th"></i>
+            <br>
+            分类
+          </a>
+        </li> -->
+        <li class="menu-item menu-item-tags">
+          <a href="/#/tags">
+            <i class="menu-item-icon icon-tags"></i>
+            <br>
+            标签
+          </a>
+        </li>
+        <li class="menu-item menu-item-archive">
+          <a href="/#/archive">
+            <i class="menu-item-icon icon-box"></i>
+            <br>
+            归档
+          </a>
+        </li>
+        <li class="menu-item menu-item-about">
+          <a href="/#/about">
+            <i class="menu-item-icon icon-user"></i>
+            <br>
+            关于
+          </a>
+        </li>
+        <!-- <li class="menu-item menu-item-images">
+          <a href="/#/images">
+            <i class="menu-item-icon icon-images"></i>
+            <br>
+            摄影
+          </a>
+        </li> -->
+      </ul>
+    </nav>
     <main>
       <router-view/>
     </main>
@@ -19,14 +65,14 @@
 import { mapState, mapMutations } from "vuex";
 import API from "./API";
 
-import CanvasLines from './components/CanvasLines';
+import CanvasLines from "./components/CanvasLines";
 
 export default {
   components: {
     CanvasLines
   },
   computed: {
-    ...mapState(['sitePV'])
+    ...mapState(["sitePV"])
   },
   methods: {
     ...mapMutations(["setPostList"])
@@ -36,23 +82,26 @@ export default {
       .then(list => {
         list.sort((a, b) => {
           if (a.date < b.date) {
-            return 1
+            return 1;
           }
           if (a.date > b.date) {
-            return -1
+            return -1;
           }
-          return 0
+          return 0;
         });
         this.setPostList(list);
       })
       .catch(err => {
-        Raven.captureException(err)
+        Raven.captureException(err);
       });
   }
 };
 </script>
 
 <style lang="scss">
+@import "./style/icon.css";
+
+
 $font-fmaily: "Roboto", "Helvetica Neue", "Hiragino Sans GB", "LiHei Pro", Arial,
   serif;
 
@@ -60,7 +109,8 @@ $font-fmaily: "Roboto", "Helvetica Neue", "Hiragino Sans GB", "LiHei Pro", Arial
   font-family: $font-fmaily;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
 }
@@ -91,7 +141,27 @@ a {
   .site-title {
     font-size: 20px;
     color: #444;
-    font-family: Lato,"PingFang SC","Microsoft YaHei",sans-serif;
+    font-family: Lato, "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+}
+
+#menu {
+  padding: 20px 0;
+  text-align: center;
+
+  .menu-item {
+    display: inline-block;
+    margin: 0 12px;
+    list-style: none;
+
+    a {
+      display: block;
+      color: #555;
+      font-size: 13px;
+      line-height: inherit;
+      border-bottom: 1px solid transparent;
+      transition-property: border-color;
+    }
   }
 }
 
@@ -104,23 +174,35 @@ a {
   transition: opacity 2s;
 
   &:hover {
-    opacity: .8;
+    opacity: 0.8;
   }
 }
 .site-subtitle {
-  margin-bottom: 60px;
+  margin-bottom: 10px;
   text-align: center;
   font-family: $font-fmaily;
   font-size: 13px;
   color: #999;
-  font-family: Lato,"PingFang SC","Microsoft YaHei",sans-serif;
+  font-family: Lato, "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
 main {
-  max-width:700px;
-  margin: 50px auto;
-  padding: 0 30px 50px;
+  max-width: 700px;
+  margin: 0 auto;
+  margin-bottom: 50px;
+  padding: 50px 30px 50px;
   position: relative;
+}
+
+.icon-home:before {
+  font-size: 14px;
+}
+.icon-tags:before {
+  font-size: 16px;
+}
+
+.icon-user:before {
+  font-size: 16px;
 }
 
 /*
@@ -136,9 +218,13 @@ main {
       width: 100px;
     }
   }
-  
+
+  #menu {
+    display: none;
+  }
+
   main {
-    padding: 0 10px 50px;
+    padding: 50px 10px 50px;
   }
 }
 </style>

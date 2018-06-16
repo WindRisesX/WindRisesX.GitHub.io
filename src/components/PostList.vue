@@ -1,7 +1,7 @@
 <template>
   <ul>
     <li v-for="(post, i) in postList" :key="i">
-      <h3>{{post.date | DateFormatEN}}</h3>
+      <h3>{{post.date | DateFormat}}</h3>
       <h2>
         <a href="#" @click.stop.prevent="routeToPost(post)">{{post.title}}</a>
       </h2>
@@ -12,7 +12,7 @@
 <script>
 import { mapState, mapMutations } from "vuex";
 import API from "../API";
-import fm from "front-matter"
+import fm from "front-matter";
 
 export default {
   computed: {
@@ -21,21 +21,23 @@ export default {
   methods: {
     ...mapMutations(["setCurrentPost", "setPostContent"]),
     routeToPost(post) {
-    this.$router.push({ name: 'Post', params: {date: post.date, title: post.title, sha: post.sha} });
+      this.$router.push({
+        name: "Post",
+        params: { date: post.date, title: post.title, sha: post.sha }
+      });
     }
-  },
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-
 main ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  
+
   li:first-child {
-    margin-top: -30px;
+    // margin-top: -30px;
   }
 
   li {
