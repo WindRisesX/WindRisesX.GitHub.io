@@ -9,6 +9,7 @@ const store = new Vuex.Store({
     currentPostIndex: -1,
     postContent: null, // 经过 marked() 处理过的文章内容,
     sitePV: 0, // 网站访问量
+    siteUV: 0, // 网站访问人数
     pagePV: 0, // 当前文章访问量
     // tagSet: []  // 标签集合
   },
@@ -34,6 +35,10 @@ const store = new Vuex.Store({
 
     setSitePV(state, n) {
       state.sitePV = n
+    },
+
+    setSiteUV(state, n) {
+      state.siteUV = n
     },
 
     setPagePV(state, n) {

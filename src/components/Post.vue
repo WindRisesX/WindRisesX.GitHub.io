@@ -39,6 +39,7 @@ export default {
       "setPostContent",
       "setCurrentPostIndexBySha",
       "setPagePV",
+      "setSiteUV",
       "setSitePV"
     ]),
     push(post) {
@@ -63,6 +64,7 @@ export default {
         Raven.captureException(err);
       } else {
         this.setSitePV(data.site_pv);
+        this.setSiteUV(data.site_uv);
         this.setPagePV(data.page_pv);
       }
     }

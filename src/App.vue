@@ -11,42 +11,42 @@
     <nav class="site-nav">
       <ul id="menu">
         <li class="menu-item menu-item-home">
-          <a href="/#/">
+          <a @click.prevent="$router.push({name: 'PostList'})">
             <i class="menu-item-icon icon-home"></i>
             <br>
             首页
           </a>
         </li>
         <!-- <li class="menu-item menu-item-categories">
-          <a href="/#/categories">
+          <a @click.prevent="$router.push({name: 'Categories'})">
             <i class="menu-item-icon icon-th"></i>
             <br>
             分类
           </a>
         </li> -->
         <li class="menu-item menu-item-tags">
-          <a href="/#/tags">
+          <a @click.prevent="$router.push({name: 'Tags'})">
             <i class="menu-item-icon icon-tags"></i>
             <br>
             标签
           </a>
         </li>
         <li class="menu-item menu-item-archive">
-          <a href="/#/archive">
+          <a @click.prevent="$router.push({name: 'Archive'})">
             <i class="menu-item-icon icon-box"></i>
             <br>
             归档
           </a>
         </li>
         <li class="menu-item menu-item-about">
-          <a href="/#/about">
+          <a @click.prevent="$router.push({name: 'About'})">
             <i class="menu-item-icon icon-user"></i>
             <br>
             关于
           </a>
         </li>
         <!-- <li class="menu-item menu-item-images">
-          <a href="/#/images">
+          <a @click.prevent="$router.push({name: 'Images'})">
             <i class="menu-item-icon icon-images"></i>
             <br>
             摄影
@@ -57,7 +57,7 @@
     <main>
       <router-view/>
     </main>
-    <span id="site_pv">{{sitePV}}℃</span>
+    <span id="site_pv">{{siteUV}}°F / {{sitePV}}℃</span>
   </div>
 </template>
 
@@ -72,10 +72,18 @@ export default {
     CanvasLines
   },
   computed: {
-    ...mapState(["sitePV"])
+    ...mapState(["sitePV", "siteUV"])
   },
   methods: {
-    ...mapMutations(["setPostList"])
+    ...mapMutations(["setPostList" , "setSitePV", "setSiteUV"]), 
+    busuanziCallBack(err, data) {
+      if (err) {
+        Raven.captureException(err);
+      } else {
+        this.setSitePV(data.site_pv);
+        this.setSiteUV(data.site_uv);
+      }
+    }
   },
   created() {
     API.getList()
@@ -94,6 +102,7 @@ export default {
       .catch(err => {
         Raven.captureException(err);
       });
+    API.busuanzi(this.busuanziCallBack)
   }
 };
 </script>
@@ -219,9 +228,9 @@ main {
     }
   }
 
-  #menu {
-    display: none;
-  }
+  // #menu {
+  //   display: none;
+  // }
 
   main {
     padding: 50px 10px 50px;
