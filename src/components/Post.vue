@@ -97,7 +97,6 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     window.document.title = `${to.params.title}`;
-    this.gitmentRender();
     API.busuanzi(this.busuanziCallBack);
     API.getDetail(to.params.sha)
       .then(text => {
@@ -106,6 +105,7 @@ export default {
         this.title = to.params.title;
         this.date = to.params.date;
         this.sha = to.params.sha;
+        this.gitmentRender();
         next();
       })
       .catch(err => {
